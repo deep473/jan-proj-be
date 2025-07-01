@@ -49,7 +49,7 @@ public class UserServiceImplementation
 			//valid credentials
 			if(webPassword.equals(dbPassword)) {
 				String role = u.getRole();
-				if(role.equals("ADMIN"))
+				if(role.equalsIgnoreCase("ADMIN"))
 					return "admin";
 				else
 					return "customer";
