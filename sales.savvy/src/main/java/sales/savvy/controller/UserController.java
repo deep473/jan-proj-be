@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 import sales.savvy.dto.LoginData;
 import sales.savvy.entity.User;
 import sales.savvy.service.UserService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@CrossOrigin("*")
 @RestController
 public class UserController {
 	
@@ -18,17 +20,7 @@ public class UserController {
 	
 	@PostMapping("/signUp")
 	public String signUp(@RequestBody User user) {
-		String username = user.getUsername();
-		User u = service.getUser(username);
-		
-		if(u != null) {
-			return "fail";
-		}
-		else {
-			service.addUser(user);
-			return "success";
-		}
-		
+		return service.addUser(user);		
 	}
 	
 	

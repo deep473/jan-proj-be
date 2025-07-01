@@ -13,8 +13,19 @@ public class UserServiceImplementation
 	@Autowired
 	UserRepository repo;
 
-	public void addUser(User user) {
-		repo.save(user);
+	public String addUser(User user) {
+		String username = user.getUsername();
+		User u = getUser(username);
+		
+		//username already exists, don't create new user
+		if(u != null) {
+			return "fail";
+		}
+		//username does not exists, create new user
+		else {
+			repo.save(user);
+			return "success";
+		}
 	}
 
 	@Override
@@ -38,7 +49,7 @@ public class UserServiceImplementation
 			//valid credentials
 			if(webPassword.equals(dbPassword)) {
 				String role = u.getRole();
-				if(role.equals("admin"))
+				if(role.equals("ADMIN"))
 					return "admin";
 				else
 					return "customer";
@@ -48,5 +59,4 @@ public class UserServiceImplementation
 				return "invalid";
 		}
 	}
-
 }

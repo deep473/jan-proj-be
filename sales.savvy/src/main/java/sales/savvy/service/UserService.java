@@ -5,7 +5,7 @@ import sales.savvy.entity.User;
 
 public interface UserService {
 
-	void addUser(User user);
+	String addUser(User user);
 
 	User getUser(String username);
 

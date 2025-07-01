@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import sales.savvy.entity.Product;
 import sales.savvy.service.ProductService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@CrossOrigin("*")
 @RestController
 public class ProductController {
 	@Autowired
