@@ -3,29 +3,32 @@ package sales.savvy.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
 public class Cart {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	@OneToOne
-	private User user;
-	@OneToMany
-	private List<CartItem> itemList = new ArrayList<CartItem>();
-	
-	public Cart() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Cart(Long id, User user, List<CartItem> itemList) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.itemList = itemList;
-	}
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
+
+    @OneToMany(
+      mappedBy = "cart",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<CartItem> itemList = new ArrayList<>();
+
+    public Cart() {}
+    public Cart(User user) {
+        this.user = user;
+    }
 
 	public Long getId() {
 		return id;
